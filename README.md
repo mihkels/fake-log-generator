@@ -1,4 +1,4 @@
-# Fake Apache Log Generator
+# Fake Apache/Nginx Log Generator
 
 This script generates a boatload of fake apache logs very quickly. Its useful for generating fake workloads for [data ingest](http://github.com/streamsets/datacollector) and/or analytics applications.
 
