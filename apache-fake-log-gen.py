@@ -67,11 +67,14 @@ faker = Faker()
 timestr = time.strftime("%Y%m%d-%H%M%S")
 otime = datetime.datetime.now()
 
-outFileName = 'access_log_' + timestr + '.log' if not file_prefix else file_prefix + '_access_log_' + timestr + '.log'
+if output_filename == '':
+    outFileName = 'access_log_' + timestr + '.log' if not file_prefix else file_prefix + '_access_log_' + timestr + '.log'
+else:
+    outFileName = output_filename + '.log'
 
 for case in switch(output_type):
     if case('LOG'):
-        f = open(outFileName, 'w')
+        f = open(outFileName, 'a')
         break
     if case('GZ'):
         f = gzip.open(outFileName + '.gz', 'w')
