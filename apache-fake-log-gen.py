@@ -11,6 +11,7 @@ import argparse
 from faker import Faker
 from random import randrange
 from tzlocal import get_localzone
+import log_write_sleep
 
 local = get_localzone()
 
@@ -48,12 +49,18 @@ parser.add_argument("--num", "-n", dest='num_lines', help="Number of lines to ge
                     default=1)
 parser.add_argument("--prefix", "-p", dest='file_prefix', help="Prefix the output file name", type=str)
 parser.add_argument("--sleep", "-s", help="Sleep this long between lines (in seconds)", default=0.0, type=float)
+parser.add_argument('--filename', '-f', help='Log file name', default="", type=str)
+parser.add_argument('--min-delay', help='Minimum delay between writes in milliseconds', default=0, type=int)
+parser.add_argument('--max-delay', help='Maximum delay between writes in milliseconds', default=0, type=int)
 
 args = parser.parse_args()
 
 log_lines = args.num_lines
 file_prefix = args.file_prefix
 output_type = args.output_type
+min_write_delay = args.min_delay
+max_write_delay = args.max_delay
+output_filename = args.filename
 
 faker = Faker()
 
@@ -84,6 +91,10 @@ ualist = [faker.firefox, faker.chrome, faker.safari, faker.internet_explorer, fa
 
 flag = True
 while (flag):
+    write_sleep = log_write_sleep.write_sleep(min_write_delay, max_write_delay)
+    if write_sleep != 0:
+        time.sleep(write_sleep / 1000)
+
     if args.sleep:
         increment = datetime.timedelta(seconds=args.sleep)
     else:
