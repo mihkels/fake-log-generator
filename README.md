@@ -11,30 +11,40 @@ It utilizes the excellent [Faker](https://github.com/joke2k/faker/) library to g
 ## Basic Usage
 
 Generate a single log line to STDOUT
-```
+
+```bash
 $ python apache-fake-log-gen.py  
 ```
 
 Generate 100 log lines into a .log file
-```
+
+```bash
 $ python apache-fake-log-gen.py -n 100 -o LOG 
 ```
 
 Generate 100 log lines into a .gz file
-```
+
+```bash
 $ python apache-fake-log-gen.py -n 100 -o GZ 
 ```
 
 Infinite log file generation (useful for testing File Tail Readers)
-```
+
+```bash
 $ python apache-fake-log-gen.py -n 0 -o LOG 
 ```
 
-Prefix the output filename 
-```
+Prefix the output filename
+
+```bash
 $ python apache-fake-log-gen.py -n 100 -o LOG -p WEB1
 ```
 
+Outfile name and directory set and maximum delay between log line writes
+
+```bash
+$ python apache-fake-log-gen.py -n 10 -o LOG -o logs --filename apache-access --max-dealy 1000 
+```
 
 Detailed help
 ```

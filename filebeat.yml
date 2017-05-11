@@ -1,0 +1,18 @@
+filebeat.prospectors:
+- input_type: log
+  document_type: demo_php_log
+  paths:
+    - '/var/logs/*-access.log'
+  fields_under_root: true
+  fields:
+    format: apache-access-log
+    service: random-service
+    site: demo-field
+    version: 2.4.20
+output.kafka:
+  enabled: true
+  hosts: ["localhost:6667"]
+  topic: '%{[type]}'
+  require_acks: 1
+  compression: gzip
+  max_message_bytes: 1000000

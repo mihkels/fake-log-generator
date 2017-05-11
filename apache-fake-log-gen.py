@@ -49,6 +49,8 @@ parser.add_argument("--num", "-n", dest='num_lines', help="Number of lines to ge
                     default=1)
 parser.add_argument("--prefix", "-p", dest='file_prefix', help="Prefix the output file name", type=str)
 parser.add_argument("--sleep", "-s", help="Sleep this long between lines (in seconds)", default=0.0, type=float)
+
+parser.add_argument('--output-dir', '-d', help='Output directory for log files', default="", type=str)
 parser.add_argument('--filename', '-f', help='Log file name', default="", type=str)
 parser.add_argument('--min-delay', help='Minimum delay between writes in milliseconds', default=0, type=int)
 parser.add_argument('--max-delay', help='Maximum delay between writes in milliseconds', default=0, type=int)
@@ -61,6 +63,7 @@ output_type = args.output_type
 min_write_delay = args.min_delay
 max_write_delay = args.max_delay
 output_filename = args.filename
+output_dir = log_write_sleep.write_log_directory(args.output_dir)
 
 faker = Faker()
 
@@ -71,6 +74,9 @@ if output_filename == '':
     outFileName = 'access_log_' + timestr + '.log' if not file_prefix else file_prefix + '_access_log_' + timestr + '.log'
 else:
     outFileName = output_filename + '.log'
+
+outFileName = output_dir + outFileName
+print('Output file: %s', outFileName)
 
 for case in switch(output_type):
     if case('LOG'):

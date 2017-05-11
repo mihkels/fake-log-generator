@@ -1,0 +1,10 @@
+version: "3"
+services:
+  gobblin:
+    image: mihkels/gobblin
+    volumes:
+      - "/var/log/gobblin:/var/log/gobblin"
+    network_mode: 'host'
+    environment:
+      KAFKA_BROKER_HOST: 'localhost'
+      TARGET: 'kafka-logs-php'

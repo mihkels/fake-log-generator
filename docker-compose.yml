@@ -1,0 +1,8 @@
+version: "3"
+services:
+  filebeat:
+    network_mode: "host"
+    image: prima/filebeat
+    volumes:
+      - "./filebeat.yml:/filebeat.yml"
+      - "./logs:/var/logs"
