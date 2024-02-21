@@ -66,7 +66,7 @@ optional arguments:
 
 
 ## Requirements
-* Python 2.7
+* Python 3.11
 * ```pip install -r requirements.txt```
 
 ## License
